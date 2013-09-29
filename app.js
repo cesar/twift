@@ -6,10 +6,12 @@
 var express = require('express');
 var routes = require('./routes');
 var user = require('./routes/user');
+var index = require('./routes/index');
 var http = require('http');
 var path = require('path');
 var Twitter = require('twitter');
 var util = require('util');
+
 var twitter = new Twitter({
   consumer_key: 'aevBRTLUjmAlv16wgrqG5w',
   consumer_secret: 'qXHcDKI47ez4c150ZjGsdCCU9gcjnl3JC08aNjJw02U',
@@ -65,6 +67,9 @@ app.get('/suggest/:username', function (req, res) {
     	});
   });
 });
+
+app.get('/findgift/:keywords', index.findgift);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
