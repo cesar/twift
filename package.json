@@ -12,6 +12,7 @@
     "passport-twitter": "~1.0.2",
     "oauth": "~0.9.10",
     "twitter": "~0.2.3",
-    "ntwitter": "~0.5.0"
+    "ntwitter": "~0.5.0",
+    "alchemy-api" : "*"
   }
 }
