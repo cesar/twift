@@ -18,6 +18,8 @@ var twitter = new Twitter({
   access_token_key: '46003103-ta6jxdKNSppMiaYFfez7oiiwuTR0U3WTLZjmhj1EM',
   access_token_secret: '5dh7bOuTyxD8QzDyHluBE1Z9BORHZaB9AiPzoVIsN7k'
 });
+var AlchemyAPI = require('alchemy-api');
+var alchemy = new AlchemyAPI('f425552e7eec51eb837a2b4a7fa08a8ced222609');
 
 var app = express();
 
@@ -45,7 +47,20 @@ app.get('/suggest/:username', function (req, res) {
     for (var i = 0; i < data.length; i++) {
       tweet_text_raw += data[i].text;
     }
-    console.log(tweet_text_raw);
+    var new_data = [];
+
+    alchemy.keywords(tweet_text_raw, {}, function(error, response)
+    	{
+    		//Only add the elements with high relevance.
+    		for(var i = 0; i < response.keywords.length; i++)
+    		{
+    			if(parseFloat(response.keywords[i].relevance, 10) > 0.85)
+    			{
+    				new_data.push(response.keywords[i]);
+    			}
+    		}
+    		console.log(new_data);
+    	});
   });
 });
 
