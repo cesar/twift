@@ -39,6 +39,10 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+app.get('/', function(req, res){
+	res.render('index');
+});
+
 app.get('/suggest/:username', function (req, res) {
   twitter.get('/statuses/user_timeline.json', {screen_name: req.params.username, count:200, include_entitites: true}, function(data) {
     var tweet_text_raw = '';

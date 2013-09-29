@@ -3,3 +3,8 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  label User
+  form(method='POST', action='/get_handle')
+  	input(type="text", id="user_name")
+  		button(type='submit')
+
