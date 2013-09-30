@@ -4,11 +4,9 @@
  */
 
 var express = require('express');
-var routes = require('./routes');
 var index = require('./routes/index');
 var http = require('http');
 var path = require('path');
-var Twitter = require('twitter');
 var util = require('util');
 var app = express();
 
