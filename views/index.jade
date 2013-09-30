@@ -1,10 +1,9 @@
 extends layout
 
 block content
-	h1= title
-	p Welcome to #{title}
-	label User
-	form(method='POST', action='/suggest')
-		input(type="text", id="user_name")
-		button(type='submit')
-
+  h1= title
+  p Welcome to #{title}
+  label User
+  form
+    input(type="text", id="giftee")
+    button(type='submit')
