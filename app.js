@@ -10,16 +10,6 @@ var http = require('http');
 var path = require('path');
 var Twitter = require('twitter');
 var util = require('util');
-
-var twitter = new Twitter({
-	consumer_key: 'aevBRTLUjmAlv16wgrqG5w',
-	consumer_secret: 'qXHcDKI47ez4c150ZjGsdCCU9gcjnl3JC08aNjJw02U',
-	access_token_key: '46003103-ta6jxdKNSppMiaYFfez7oiiwuTR0U3WTLZjmhj1EM',
-	access_token_secret: '5dh7bOuTyxD8QzDyHluBE1Z9BORHZaB9AiPzoVIsN7k'
-});
-var AlchemyAPI = require('alchemy-api');
-var alchemy = new AlchemyAPI('f425552e7eec51eb837a2b4a7fa08a8ced222609');
-
 var app = express();
 
 // all environments
