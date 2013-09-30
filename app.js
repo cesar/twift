@@ -47,11 +47,6 @@ app.get('/', function(req, res){
 
 
 app.post('/suggest', index.suggest);
-<<<<<<< HEAD
-//app.get('/findgift/:keywords', index.findgift);
-=======
-// app.get('/findgift/:keywords', index.findgift);
->>>>>>> 806f9eabc559f49a72ed0914a42b8200c07d831e
 
 
 http.createServer(app).listen(app.get('port'), function(){

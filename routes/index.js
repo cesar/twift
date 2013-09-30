@@ -40,17 +40,17 @@ exports.suggest = function(req, res){
 				}
 
 
-        https.get("openapi.etsy.com/v2/treasuries?api_key=oo4naleziqpm5w8c4q592968&keywords="+response.keywords[0].text, function(res) {
-  console.log("statusCode: ", res.statusCode);
-  console.log("headers: ", res.headers);
+        https.get("https://openapi.etsy.com/v2/treasuries?api_key=oo4naleziqpm5w8c4q592968&keywords="+response.keywords[0].text, function(res) {
+                console.log("statusCode: ", res.statusCode);
+                console.log("headers: ", res.headers);
 
-  res.on('data', function(d) {
-    process.stdout.write(d);
-  });
+                res.on('data', function(d) {
+                 process.stdout.write(d);
+                });
 
-}).on('error', function(e) {
-  console.error(e);
-});
+              }).on('error', function(e) {
+                console.error(e);
+              });
          
     });
 
