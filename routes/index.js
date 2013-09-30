@@ -1,4 +1,4 @@
-var http = require('https');
+var https = require('https');
 var Twitter = require('twitter');
 var util = require('util');
 
@@ -20,45 +20,66 @@ exports.index = function(req, res){
 };
 
 exports.suggest = function(req, res){
-	twitter.get('/statuses/user_timeline.json', {screen_name: req.body.user_name, count:200, include_entitites: true}, function(data) {
-		var tweet_text_raw = '';
-		for (var i = 0; i < data.length; i++) {
-			tweet_text_raw += data[i].text;
-		}
+	twitter.get('/statuses/user_timeline.json', {screen_name: req.body.user_name, count:200, include_entitites: true}, function(data) 
+  {
+		  var tweet_text_raw = '';
+	    for (var i = 0; i < data.length; i++) {
+			   tweet_text_raw += data[i].text;
+		  }
 		var new_data = [];
 
-		alchemy.keywords(tweet_text_raw, {}, function(error, response){
+		alchemy.keywords(tweet_text_raw, {}, function(error, response)
+    {
 				//Only add the elements with high relevance.
-				for(var i = 0; i < response.keywords.length; i++){
-					if(parseFloat(response.keywords[i].relevance, 10) > 0.85){
+				for(var i = 0; i < response.keywords.length; i++)
+        {
+					if(parseFloat(response.keywords[i].relevance, 10) > 0.85)
+          {
 						new_data.push(response.keywords[i]);
 					}
 				}
-				console.log(response);
-			var options = {
-				hostname: 'openapi.etsy.com',
-				path: '/v2/treasuries?api_key=oo4naleziqpm5w8c4q592968&keywords='+response.keywords[0].text,
-				method: 'get'
-			};
-			console.log(options);
 
-<<<<<<< HEAD
-  var request = http.request(options, function(response) {
-    console.log('STATUS: ' + response.statusCode);
-    // console.log('HEADERS: ' + JSON.stringify(response.headers));
-    response.setEncoding('utf8');
-    response.on('data', function (chunk) {
-      // JSON.parse(chunk);
-      res.send(chunk);
+
+        https.get("openapi.etsy.com/v2/treasuries?api_key=oo4naleziqpm5w8c4q592968&keywords="+response.keywords[0].text, function(res) {
+  console.log("statusCode: ", res.statusCode);
+  console.log("headers: ", res.headers);
+
+  res.on('data', function(d) {
+    process.stdout.write(d);
+  });
+
+}).on('error', function(e) {
+  console.error(e);
+});
+        //Printing all my data.
+				//console.log(response);
+			   // var options = {
+				  //   hostname: 'openapi.etsy.com',
+				  //   path: '/v2/treasuries?api_key=oo4naleziqpm5w8c4q592968&keywords='+response.keywords[0].text,
+				  //   method: 'get'
+			   // };
+
+      //   var request = http.request(options, function(response) 
+      //   {
+      //       console.log('STATUS: ' + response.statusCode);
+      //       // console.log('HEADERS: ' + JSON.stringify(response.headers));
+      //       response.setEncoding('utf8');
+      //       response.on('data', function (chunk) {
+      //       // JSON.parse(chunk);
+      //       res.send(chunk);
+      //       });
+      //   });
+
+      //   request.on('error', function(e)
+      //   {
+	     //     // console.log('problem with request: ' + e.message);
+      //   });
+
+      //   // // write data to request body
+      //   // request.write('data\n');
+      //   // request.write('data\n');
+      //    request.end();
     });
-  });
 
-  request.on('error', function(e) {
-	// console.log('problem with request: ' + e.message);
   });
-
-  // write data to request body
-  request.write('data\n');
-  request.write('data\n');
-  request.end();
 }
