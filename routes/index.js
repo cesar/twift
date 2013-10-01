@@ -20,7 +20,7 @@ exports.index = function(req, res){
 };
 
 exports.suggest = function(req, res){
-	twitter.get('/statuses/user_timeline.json', {screen_name: req.body.user_name, count:200, include_entitites: true}, function(data) 
+	twitter.get('/statuses/user_timeline.json', {user_id: req.body.user_name, count:200, include_entitites: true}, function(data) 
   {
 		  var tweet_text_raw = '';
 	    for (var i = 0; i < data.length; i++) {
@@ -40,7 +40,7 @@ exports.suggest = function(req, res){
 				}
 
 
-        https.get("https://openapi.etsy.com/v2/treasuries?api_key=oo4naleziqpm5w8c4q592968&keywords="+response.keywords[0].text+'&', function(response) {
+        https.get("https://openapi.etsy.com/v2/treasuries?api_key=oo4naleziqpm5w8c4q592968&keywords="+response.keywords[0].text, function(response) {
                 console.log("statusCode: ", res.statusCode);
                 console.log("headers: ", res.headers);
 
@@ -53,6 +53,7 @@ exports.suggest = function(req, res){
 
                 response.on('end', function()
                 {
+                  console.log(JSON.parse(result).results[1]);
                   //When the request is done
                   res.render('suggestions', {content : JSON.parse(result).results})
                 });
