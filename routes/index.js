@@ -23,41 +23,41 @@ exports.index = function(req, res){
  * GET etsy suggestions
  */
 
-exports.getSuggestions = function(req, res){
-//  twitter.get('/statuses/user_timeline.json', {screen_name: req.params.giftee, count:2, include_entitites: true}, function(data) 
-//   {
-//      var tweet_text_raw = '';
-//      for (var i = 0; i < data.length; i++) {
-//         tweet_text_raw += data[i].text;
-//      }
-//    var new_data = [];
+exports.getSuggestions = function(req, res) {
+  twitter.get('/statuses/user_timeline.json', {user_id: req.body.user_name, count:2, include_entitites: true}, function(data) {
+      var tweet_text_raw = '';
+      for (var i = 0; i < data.length; i++) {
+         tweet_text_raw += data[i].text;
+      }
+    var new_data = [];
 
-//    alchemy.keywords(tweet_text_raw, {}, function(error, response)
-//     {
-//        //Only add the elements with relevance > 0.85.
-//        var REVELANCE_THRESHOLD = 0.85
-// 
-//        for(var i = 0; i < response.keywords.length; i++)
-//         {
-//          if(parseFloat(response.keywords[i].relevance, 10) > REVELANCE_THRESHOLD)
-//           {
-//            new_data.push(response.keywords[i]);
-//          }
-//        }
+    alchemy.keywords(tweet_text_raw, {}, function(error, response) {
+      //Only add the elements with high relevance.
+      for(var i = 0; i < response.keywords.length; i++) {
+        if(parseFloat(response.keywords[i].relevance, 10) > 0.85)
+        {
+          new_data.push(response.keywords[i]);
+        }
+      }
 
-//   https.get("openapi.etsy.com/v2/treasuries?api_key="+process.env.ETSY_API_KEY+"&keywords="+response.keywords[0].text, function(res) {
-//   console.log("statusCode: ", res.statusCode);
-//   console.log("headers: ", res.headers);
+      https.get("https://openapi.etsy.com/v2/treasuries?api_key="+process.env.ETSY_API_KEY+"&keywords="+response.keywords[0].text, function(response) {
+        //store chunks of data
+        var result = '';
+        response.on('data', function(someData) {
+          //more data has been received
+          result += someData;
+        });
 
-//   res.on('data', function(d) {
-//     process.stdout.write(d);
-//   });
+        response.on('end', function()
+        {
+          console.log(JSON.parse(result).results[1]);
+          //When the request is done
+          res.render('suggestions', {content : JSON.parse(result).results})
+        });
 
-// }).on('error', function(e) {
-//   console.error(e);
-// });
-         
-//     });
-
-//   });
+      }).on('error', function(e) {
+        console.error(e);
+      });
+    });
+  });
 }
