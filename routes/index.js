@@ -1,13 +1,12 @@
 var https = require('https');
-var Twitter = require('twitter');
-var util = require('util');
-
+var Twitter = require('mtwitter');
 var twitter = new Twitter({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
   access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 });
+
 var AlchemyAPI = require('alchemy-api');
 var alchemy = new AlchemyAPI(process.env.ALCHEMY_API_KEY);
 
@@ -24,11 +23,16 @@ exports.index = function(req, res){
  */
 
 exports.getSuggestions = function(req, res) {
-  twitter.get('/statuses/user_timeline.json', {user_id: req.body.user_name, count:2, include_entitites: true}, function(data) {
-      var tweet_text_raw = '';
-      for (var i = 0; i < data.length; i++) {
-         tweet_text_raw += data[i].text;
-      }
+
+  twitter.get('/statuses/user_timeline', {screen_name : req.params.username, count : 5}, function(err, data)
+  {
+    var tweet_text_raw = '';
+    for(var i = 0; i < data.length; i++)
+    {
+      tweet_text_raw += data[i].text;
+    }
+
+
     var new_data = [];
 
     alchemy.keywords(tweet_text_raw, {}, function(error, response) {
