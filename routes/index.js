@@ -40,12 +40,21 @@ exports.suggest = function(req, res){
 				}
 
 
-        https.get("https://openapi.etsy.com/v2/treasuries?api_key=oo4naleziqpm5w8c4q592968&keywords="+response.keywords[0].text, function(res) {
+        https.get("https://openapi.etsy.com/v2/treasuries?api_key=oo4naleziqpm5w8c4q592968&keywords="+response.keywords[0].text+'&', function(response) {
                 console.log("statusCode: ", res.statusCode);
                 console.log("headers: ", res.headers);
 
-                res.on('data', function(d) {
-                 process.stdout.write(d);
+                //store chunks of data
+                var result = '';
+                response.on('data', function(someData) {
+                  //more data has been received
+                  result += someData;
+                });
+
+                response.on('end', function()
+                {
+                  //When the request is done
+                  res.render('suggestions', {content : JSON.parse(result).results})
                 });
 
               }).on('error', function(e) {
