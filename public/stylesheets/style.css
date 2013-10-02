@@ -1,8 +1,40 @@
+@import url(http://fonts.googleapis.com/css?family=Titillium+Web:400,300,700);
+
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+font-family: 'Titillium Web', sans-serif;}
 
 a {
   color: #00B7FF;
+}
+
+
+#container{
+	position: relative;
+	text-align: center;
+}
+#logo{
+	margin-left: 0 auto;
+}
+
+h2{
+	color: gray;
+	text-transform: none;
+	text-decoration: none;
+	font-weight: normal;
+	font-style: normal;
+}
+
+input{
+	border: none;
+	height: 30px;
+	font-size: 20px;
+	background-color: #d9d9d9;
+}
+
+button{
+	height: 30px;
+	border: 0px;
+	font-size: 20px;
+	line-height: 22px;
 }
