@@ -32,7 +32,7 @@ exports.getSuggestions = function(req, res)
 
       var category = response.category.split('_');
       console.log(category);
-      https.get("https://openapi.etsy.com/v2/listings/active?api_key="+process.env.ETSY_API_KEY+"&keywords="+category[0]+"&limit=10", function(response) {
+      https.get("https://openapi.etsy.com/v2/listings/active?api_key="+process.env.ETSY_API_KEY+"&keywords="+category[0]+"&limit=100", function(response) {
         //store chunks of data
         var result = '';
         response.on('data', function(someData) {
@@ -42,9 +42,16 @@ exports.getSuggestions = function(req, res)
 
         response.on('end', function()
         {
+          var send_data = {content : []};
+
+          for(i = 0; i < 10; i++)
+          {
+              send_data.content.push(JSON.parse(result).results[Math.floor(Math.random() * (100 - 0 + 1) + 0)])
+          }
+          console.log(send_data);
           //console.log(JSON.parse(result));
           //When the request is done
-          res.render('suggestions', {content : JSON.parse(result).results})
+          res.render('suggestions', send_data);
         });
 
       }).on('error', function(e) {
