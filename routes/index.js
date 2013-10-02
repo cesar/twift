@@ -10,13 +10,6 @@ var twitter = new Twitter({
 var AlchemyAPI = require('alchemy-api');
 var alchemy = new AlchemyAPI(process.env.ALCHEMY_API_KEY);
 
-/*
- * GET home page.
- */
-
-exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
-};
 
 /*
  * GET etsy suggestions
@@ -24,7 +17,7 @@ exports.index = function(req, res){
 
 exports.getSuggestions = function(req, res) {
 
-  twitter.get('/statuses/user_timeline', {screen_name : req.params.username, count : 5}, function(err, data)
+  twitter.get('/statuses/user_timeline', {screen_name : req.body.screen_name, count : 100}, function(err, data)
   {
     var tweet_text_raw = '';
     for(var i = 0; i < data.length; i++)
@@ -35,16 +28,11 @@ exports.getSuggestions = function(req, res) {
 
     var new_data = [];
 
-    alchemy.keywords(tweet_text_raw, {}, function(error, response) {
-      //Only add the elements with high relevance.
-      for(var i = 0; i < response.keywords.length; i++) {
-        if(parseFloat(response.keywords[i].relevance, 10) > 0.85)
-        {
-          new_data.push(response.keywords[i]);
-        }
-      }
+    alchemy.category(tweet_text_raw, {}, function(error, response) {
 
-      https.get("https://openapi.etsy.com/v2/treasuries?api_key="+process.env.ETSY_API_KEY+"&keywords="+response.keywords[0].text, function(response) {
+      var category = response.category.replace('_', ' ');
+
+      https.get("https://openapi.etsy.com/v2/listings/active?api_key="+process.env.ETSY_API_KEY+"&keywordscon="+category+"&limit=10", function(response) {
         //store chunks of data
         var result = '';
         response.on('data', function(someData) {
@@ -54,7 +42,7 @@ exports.getSuggestions = function(req, res) {
 
         response.on('end', function()
         {
-          console.log(JSON.parse(result).results[1]);
+          console.log(JSON.parse(result));
           //When the request is done
           res.render('suggestions', {content : JSON.parse(result).results})
         });
