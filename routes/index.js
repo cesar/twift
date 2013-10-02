@@ -15,8 +15,8 @@ var alchemy = new AlchemyAPI(process.env.ALCHEMY_API_KEY);
  * GET etsy suggestions
  */
 
-exports.getSuggestions = function(req, res) {
-
+exports.getSuggestions = function(req, res) 
+{
   twitter.get('/statuses/user_timeline', {screen_name : req.body.screen_name, count : 100}, function(err, data)
   {
     var tweet_text_raw = '';
@@ -30,9 +30,9 @@ exports.getSuggestions = function(req, res) {
 
     alchemy.category(tweet_text_raw, {}, function(error, response) {
 
-      var category = response.category.replace('_', ' ');
-
-      https.get("https://openapi.etsy.com/v2/listings/active?api_key="+process.env.ETSY_API_KEY+"&keywordscon="+category+"&limit=10", function(response) {
+      var category = response.category.split('_');
+      console.log(category);
+      https.get("https://openapi.etsy.com/v2/listings/active?api_key="+process.env.ETSY_API_KEY+"&keywords="+category[0]+"&limit=10", function(response) {
         //store chunks of data
         var result = '';
         response.on('data', function(someData) {
@@ -42,7 +42,7 @@ exports.getSuggestions = function(req, res) {
 
         response.on('end', function()
         {
-          console.log(JSON.parse(result));
+          //console.log(JSON.parse(result));
           //When the request is done
           res.render('suggestions', {content : JSON.parse(result).results})
         });
