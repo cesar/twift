@@ -13,3 +13,4 @@ Etsy gifting using Twitter for suggestions.
 * Delete commit history with env variables.
 * Make search results random
 * Apropiate status response codes
+* Add a transition loading screen. 
