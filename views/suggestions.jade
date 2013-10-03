@@ -1,8 +1,9 @@
 extends layout
 
 block content
-	h2 Suggestions
-	ul
-		each item in content
-			li 
-				h2 #{item.title}
+  h2 Suggestions
+  ul
+    each item in content
+      li 
+        img(src= item.Images[0].url_fullxfull)
+        h2 #{item.title}

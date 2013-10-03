@@ -25,14 +25,15 @@ exports.getSuggestions = function(req, res)
       tweet_text_raw += data[i].text;
     }
 
-
     var new_data = [];
 
     alchemy.category(tweet_text_raw, {}, function(error, response) {
 
       var category = response.category.split('_');
-      console.log(category);
-      https.get("https://openapi.etsy.com/v2/listings/active?api_key="+process.env.ETSY_API_KEY+"&keywords="+category[0]+"&limit=100", function(response) {
+
+      https.get("https://openapi.etsy.com/v2/listings/active?api_key=" + process.env.ETSY_API_KEY +
+                "&keywords=" + category[0] + 
+                "&limit=100&fields=title&includes=Images(url_fullxfull)", function(response) {
         //store chunks of data
         var result = '';
         response.on('data', function(someData) {
@@ -44,13 +45,16 @@ exports.getSuggestions = function(req, res)
         {
           var send_data = {content : []};
 
-          for(i = 0; i < 10; i++)
-          {
-              send_data.content.push(JSON.parse(result).results[Math.floor(Math.random() * (100 - 0 + 1) + 0)])
+          var blah = JSON.parse(result);
+          for(i = 0; i < 10; i++) {
+            var randomness = Math.floor(Math.random() * 101);
+            if (blah.results[randomness].title !== undefined)
+              send_data.content.push(blah.results[randomness]);
           }
+
           console.log(send_data);
-          //console.log(JSON.parse(result));
-          //When the request is done
+          console.log(send_data.content[0].Images);
+
           res.render('suggestions', send_data);
         });
 
