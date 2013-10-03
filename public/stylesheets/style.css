@@ -17,7 +17,7 @@ a {
 	margin-left: 0 auto;
 }
 
-h2{
+h2, h3{
 	color: gray;
 	text-transform: none;
 	text-decoration: none;
@@ -27,14 +27,42 @@ h2{
 
 input{
 	border: none;
-	height: 30px;
+	height: 40px;
 	font-size: 20px;
 	background-color: #d9d9d9;
+	width: 300px;
 }
 
 button{
-	height: 30px;
+	height: 40px;
 	border: 0px;
 	font-size: 20px;
 	line-height: 22px;
+	width: 80px;
+}
+
+ul{
+	list-style: none;
+}
+
+li{
+	padding-bottom: 20px;
+}
+a{
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: none;
+	text-transform: none;
+}
+
+a:hover{
+	color: #c94c0f;
+}
+.item{
+	color: gray;
+	font-size: 20px;
+}
+#suggestions{
+	max-width: 600px;
+	margin: 0 auto;
 }
