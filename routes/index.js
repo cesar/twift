@@ -17,11 +17,9 @@ var alchemy = new AlchemyAPI(process.env.ALCHEMY_API_KEY);
 
 exports.getSuggestions = function(req, res) 
 {
-  twitter.get('/statuses/user_timeline', {screen_name : req.body.screen_name, count : 100}, function(err, data)
-  {
+  twitter.get('/statuses/user_timeline', {screen_name : req.body.screen_name, count : 100}, function(err, data) {
     var tweet_text_raw = '';
-    for(var i = 0; i < data.length; i++)
-    {
+    for(var i = 0; i < data.length; i++) {
       tweet_text_raw += data[i].text;
     }
 
@@ -37,12 +35,10 @@ exports.getSuggestions = function(req, res)
         //store chunks of data
         var result = '';
         response.on('data', function(someData) {
-          //more data has been received
           result += someData;
         });
 
-        response.on('end', function()
-        {
+        response.on('end', function() {
           var send_data = {content : []};
 
           var blah = JSON.parse(result);
@@ -51,9 +47,6 @@ exports.getSuggestions = function(req, res)
             if (blah.results[randomness].title !== undefined)
               send_data.content.push(blah.results[randomness]);
           }
-
-          console.log(send_data);
-          console.log(send_data.content[0].Images);
 
           res.render('suggestions', send_data);
         });
