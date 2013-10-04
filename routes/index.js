@@ -31,7 +31,8 @@ exports.getSuggestions = function(req, res)
 
       https.get("https://openapi.etsy.com/v2/listings/active?api_key=" + process.env.ETSY_API_KEY +
                 "&keywords=" + category[0] + 
-                "&limit=100&fields=title&includes=Images(url_fullxfull)", function(response) {
+                "&limit=100&fields=title,url&includes=Images(url_fullxfull)", function(response) {
+
         //store chunks of data
         var result = '';
         response.on('data', function(someData) {

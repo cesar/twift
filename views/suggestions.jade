@@ -6,4 +6,4 @@ block content
     each item in content
       li 
         img(src= item.Images[0].url_fullxfull)
-        h2 #{item.title}
+        a(href= item.url)= item.title
