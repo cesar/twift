@@ -1,5 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Titillium+Web:400,300,700);
-
+@import url(http://fonts.googleapis.com/css?family=Yellowtail);
 body {
   padding: 50px;
 font-family: 'Titillium Web', sans-serif;}
@@ -17,6 +17,16 @@ a {
 	margin-left: 0 auto;
 }
 
+h1{
+	font-family: 'Yellowtail', cursive;
+	font-size: 120px;
+	color: #c94c0f;
+	margin-bottom: 50px;
+}
+
+.h1_2{
+	color: #9f9f9f;
+}
 h2, h3{
 	color: gray;
 	text-transform: none;
