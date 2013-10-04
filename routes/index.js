@@ -17,40 +17,38 @@ var alchemy = new AlchemyAPI(process.env.ALCHEMY_API_KEY);
 
 exports.getSuggestions = function(req, res) 
 {
-  twitter.get('/statuses/user_timeline', {screen_name : req.body.screen_name, count : 100}, function(err, data)
-  {
+  twitter.get('/statuses/user_timeline', {screen_name : req.body.screen_name, count : 100}, function(err, data) {
     var tweet_text_raw = '';
-    for(var i = 0; i < data.length; i++)
-    {
+    for(var i = 0; i < data.length; i++) {
       tweet_text_raw += data[i].text;
     }
-
 
     var new_data = [];
 
     alchemy.category(tweet_text_raw, {}, function(error, response) {
 
       var category = response.category.split('_');
-      console.log(category);
-      https.get("https://openapi.etsy.com/v2/listings/active?api_key="+process.env.ETSY_API_KEY+"&keywords="+category[0]+"&limit=100", function(response) {
+
+      https.get("https://openapi.etsy.com/v2/listings/active?api_key=" + process.env.ETSY_API_KEY +
+                "&keywords=" + category[0] + 
+                "&limit=100&fields=title,url&includes=Images(url_fullxfull)", function(response) {
+
         //store chunks of data
         var result = '';
         response.on('data', function(someData) {
-          //more data has been received
           result += someData;
         });
 
-        response.on('end', function()
-        {
+        response.on('end', function() {
           var send_data = {content : []};
 
-          for(i = 0; i < 10; i++)
-          {
-              send_data.content.push(JSON.parse(result).results[Math.floor(Math.random() * (100 - 0 + 1) + 0)])
+          var blah = JSON.parse(result);
+          for(i = 0; i < 10; i++) {
+            var randomness = Math.floor(Math.random() * 101);
+            if (blah.results[randomness].title !== undefined)
+              send_data.content.push(blah.results[randomness]);
           }
-          console.log(send_data);
-          //console.log(JSON.parse(result));
-          //When the request is done
+
           res.render('suggestions', send_data);
         });
 
