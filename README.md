@@ -8,9 +8,3 @@ Etsy gifting using Twitter for suggestions.
 2. `sudo npm install -g nodemon`
 3. Create `.env` file with environment variables needed.
 4. `foreman start -f Procfile_dev` to use dev enviroment variables and nodemon. 
-
-# TODO
-* Delete commit history with env variables.
-* Make search results random
-* Apropiate status response codes
-* Add a transition loading screen. 

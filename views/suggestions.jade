@@ -5,5 +5,5 @@ block content
   ul
     each item in content
       li 
-        img(src= item.Images[0].url_fullxfull)
-        a(href= item.url)= item.title
+        img(src=item.Images[0].url_fullxfull)
+        a.item(href=item.url)= item.title
