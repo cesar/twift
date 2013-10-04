@@ -1,5 +1,4 @@
 @import url(http://fonts.googleapis.com/css?family=Titillium+Web:400,300,700);
-@import url(http://fonts.googleapis.com/css?family=Yellowtail);
 body {
   padding: 50px;
 font-family: 'Titillium Web', sans-serif;}
@@ -18,7 +17,6 @@ a {
 }
 
 h1{
-	font-family: 'Yellowtail', cursive;
 	font-size: 120px;
 	color: #c94c0f;
 	margin-bottom: 50px;
@@ -44,11 +42,14 @@ input{
 }
 
 button{
-	height: 40px;
+	height: 42px;
 	border: 0px;
 	font-size: 20px;
 	line-height: 22px;
 	width: 80px;
+	padding-bottom: 2px;
+	background-color: #c94c0f;
+	color: #fff;
 }
 
 ul{
@@ -71,6 +72,7 @@ a:hover{
 .item{
 	color: gray;
 	font-size: 20px;
+	display: block;
 }
 #suggestions{
 	max-width: 600px;

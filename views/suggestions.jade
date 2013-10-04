@@ -1,10 +1,9 @@
 extends layout
 
 block content
-  #suggestions
-    h2 Suggestions
-    ul
-      each item in content
-          li 
-            a.item(href=item.url, target='_blank')
-              | #{item.title}
+  h2 Suggestions
+  ul
+    each item in content
+      li 
+        img(src=item.Images[0].url_fullxfull)
+        a.item(href=item.url)= item.title
