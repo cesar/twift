@@ -1,12 +1,13 @@
 extends layout
 
 block content
-  h2 Suggestions
-  ul
-    each item in content
-      li
-        div(style='width : 800px; height : 150px;')
-          div(style='float : left; width : 30%')
-            img.image(src=item.Images[0].url_170x135)
-          div(style='float : left; width : 70%')
-            a.item(href=item.url)= item.title
+  .sContainer
+    form(method="POST", action="/suggest")
+      input(type="text", id="giftee", name="screen_name", placeholder="twitter username")
+      button(type='submit') go
+
+    div.grid.grid-pad
+      each item in content
+          div.col-1-4
+            a(href=item.url)
+              img.image(src=item.Images[0].url_170x135)

@@ -1,0 +1,135 @@
+@import url(http://fonts.googleapis.com/css?family=Titillium+Web:400,300,700);
+body {
+  padding: 50px;
+  font-family: 'Titillium Web', sans-serif;}
+
+a {
+  color: #00B7FF;
+}
+
+
+#container{
+	position: relative;
+	text-align: center;
+}
+#logo{
+	margin-left: 0 auto;
+}
+
+h1{
+	font-size: 120px;
+	color: #c94c0f;
+	margin-bottom: 50px;
+}
+
+.h1_2{
+	color: #9f9f9f;
+}
+h2, h3{
+	color: gray;
+	text-transform: none;
+	text-decoration: none;
+	font-weight: normal;
+	font-style: normal;
+}
+
+input{
+	border: none;
+	height: 40px;
+	background-color: #d9d9d9;
+	width: 300px;
+	padding-left: 10px;
+	font-weight: 400;
+	font-size: 16px;
+}
+
+button{
+	height: 42px;
+	border: 0px;
+	font-size: 20px;
+	line-height: 22px;
+	width: 80px;
+	padding-bottom: 2px;
+	background-color: #c94c0f;
+	color: #fff;
+}
+
+ul{
+	list-style: none;
+}
+
+li{
+	padding-bottom: 20px;
+}
+a{
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: none;
+	text-transform: none;
+}
+
+a:hover{
+	color: #c94c0f;
+}
+.item{
+	color: gray;
+	font-size: 20px;
+	display: block;
+}
+#suggestions{
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+/*Suggestion Styling*/
+
+.sContainer{
+	width: 800px;
+	position: relative;
+	margin: 0 auto;
+}
+
+.sContainer h1{
+	font-size: 36px;
+	margin: 0;
+	float: left;
+}
+
+
+.sContainer form{
+	float: right;
+}
+.sContainer input{
+	border: none;
+	height: 30px;
+	background-color: #d9d9d9;
+	width: 200px;
+	padding-left: 10px;
+	font-weight: 400;
+	font-size: 16px;
+}
+
+.sContainer button{
+	height: 32px;
+	border: 0px;
+	font-size: 20px;
+	line-height: 22px;
+	width: 60px;
+	padding-bottom: 2px;
+	background-color: #c94c0f;
+	color: #fff;
+}
+
+ul#grid {
+  padding: 0;
+  list-style: none;
+  margin: 20px auto 0;
+  width: 1000px;  
+  }
+
+#grid li {
+  float: left;
+  padding: 10px;
+  margin: 0 5px 10px 5px;
+  width: 220px;
+  }

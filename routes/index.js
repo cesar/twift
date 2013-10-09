@@ -43,7 +43,7 @@ exports.getSuggestions = function(req, res)
           var send_data = {content : []};
 
           var blah = JSON.parse(result);
-          for(i = 0; i < 10; i++) {
+          for(i = 0; i < 16; i++) {
             var randomness = Math.floor(Math.random() * 101);
             if (blah.results[randomness].title !== undefined)
               send_data.content.push(blah.results[randomness]);
