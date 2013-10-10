@@ -97,6 +97,7 @@ a:hover{
 
 .sContainer form{
 	float: right;
+	margin-right: 20px;
 }
 .sContainer input{
 	border: none;
