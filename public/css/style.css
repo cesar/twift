@@ -131,4 +131,9 @@ ul#grid {
   padding: 10px;
   margin: 0 5px 10px 5px;
   width: 220px;
-  }
+ }
+
+ .suggestionHeader {
+ 	-webkit-transform: rotate(-90deg);
+ 	position: fixed;
+ }
