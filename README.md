@@ -1,4 +1,4 @@
-etsyGift
+Twift
 ========
 
 Etsy gifting using Twitter for suggestions. 
